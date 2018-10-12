@@ -1,43 +1,30 @@
 syntax: glob
-#-----------------
-# Windows
-#-----------------
-*.pdb
-#*.obj
-#*.lib
-*.exe
-*.sdf
-windows/x64
-windows/x86
-.suo
-*.opensdf
-*.opendb
-*.VC.db
-*.vcxproj.user
-#-----------------
-# Linux
-#-----------------
-#*.o
-#*.a
-#-----------------
-# OSX/IOS
-#-----------------
 .DS_Store
-xcuserdata
-#-----------------
-# Android
-#-----------------
-#-----------------
-# Common
-#-----------------
-obj
-lib
-*.zip
-*.swp
-*.swo
-.git
-#-----------------
-# UE4
-#-----------------
-Intermediate
-Binaries
+*.sln
+*.userprefs
+*.csproj
+*.pidb
+*.unitypackage
+*.suo
+*.unityproj
+*.bin
+ 
+Assets\Notes.txt.meta.orig.meta
+Assets\StreamingAssets\build_info.txt
+Assets\StreamingAssets\build_info.txt.meta
+Assets/PixelDraw
+*.orig
+build_info.txt
+*orig.meta
+Photon-Unity-Win81.unitypackage.meta
+*.psd
+Assets/ArtistAssets/AppStores
+Assets/ArtistAssets/Masters
+AppStores.meta
+Masters.meta
+syntax: regexp
+^Library/.*
+^Temp/.*
+^obj/.*
+^Builds/.*
+^.vs/.*
