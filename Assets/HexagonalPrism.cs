@@ -34,13 +34,12 @@ namespace Assets {
             gameObject = Instantiate(Resources.Load<GameObject>("Hex"));
 
 
-            meshCollider = gameObject.GetComponent<MeshCollider>();
-            //meshCollider.convex = true;
-            //meshCollider.cookingOptions = (MeshColliderCookingOptions)16;
+            meshCollider = gameObject.AddComponent<MeshCollider>();
             meshRenderer = gameObject.AddComponent <MeshRenderer>();
             meshFilter = gameObject.AddComponent <MeshFilter>();
             mesh = new Mesh();
 
+            meshCollider.convex = true;
 
             this.radius = radius;
             this.height = height;
@@ -53,7 +52,7 @@ namespace Assets {
             meshRenderer.material = mat;
             meshFilter.mesh = mesh;
             meshCollider.sharedMesh = mesh;
-            //meshCollider.material = physicMaterial;
+            meshCollider.material = physicMaterial;
 
             vertices = new Vector3[] {
                 new Vector3(0, yMax, 0), //TopCenter

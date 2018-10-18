@@ -15,6 +15,8 @@ public class MeshGenerator : MonoBehaviour {
     int totalHexesRendered;
     //int currentHexesRendered;
 
+    bool stupid = false;
+
     // Use this for initializatiom
     void Start() {
         hexList = new List<Assets.HexagonalPrism>();
@@ -39,5 +41,13 @@ public class MeshGenerator : MonoBehaviour {
 
     void DrawHex() {
         Assets.HexagonalPrism hex = new Assets.HexagonalPrism(Radius, Height, transform.position, Resources.Load <Material>("BoxMat"), Resources.Load<PhysicMaterial>("NoStuck"));
+    }
+
+    void LateUpdate() {
+        if(stupid = false) {
+            stupid = true;
+            hexList[0].GetComponent<MeshCollider>().enabled = false;
+            hexList[0].GetComponent<MeshCollider>().enabled = true;
+        }
     }
 }
