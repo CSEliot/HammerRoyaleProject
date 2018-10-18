@@ -8,11 +8,17 @@ namespace Assets {
     /// <summary>
     /// Doesn't support rotation. Top Center = Position.
     /// </summary>
-    class HexagonalPrism {
+    class HexagonalPrism:MonoBehaviour {
 
         float radius;
-        float width;
         float height;
+
+        GameObject gameObject;
+        Material mat;
+        MeshCollider meshCollider;
+        MeshRenderer meshRenderer;
+        Mesh mesh;
+        MeshFilter meshFilter;
 
         /*
          * Position
@@ -23,14 +29,31 @@ namespace Assets {
 
         int[] triangles;
 
-        public HexagonalPrism(float radius, float width, float height, Vector3 position) {
+        public HexagonalPrism(float radius, float height, Vector3 position, Material mat, PhysicMaterial physicMaterial) {
+
+            gameObject = Instantiate(Resources.Load<GameObject>("Hex"));
+
+
+            meshCollider = gameObject.GetComponent<MeshCollider>();
+            //meshCollider.convex = true;
+            //meshCollider.cookingOptions = (MeshColliderCookingOptions)16;
+            meshRenderer = gameObject.AddComponent <MeshRenderer>();
+            meshFilter = gameObject.AddComponent <MeshFilter>();
+            mesh = new Mesh();
+
+
             this.radius = radius;
-            this.width = width;
             this.height = height;
             this.center = position;
+            this.mat = mat;
 
             float yMax = position.y + height;
             float yMin = position.y;
+
+            meshRenderer.material = mat;
+            meshFilter.mesh = mesh;
+            meshCollider.sharedMesh = mesh;
+            //meshCollider.material = physicMaterial;
 
             vertices = new Vector3[] {
                 new Vector3(0, yMax, 0), //TopCenter
@@ -48,7 +71,6 @@ namespace Assets {
                 new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*300f),yMin, radius * Mathf.Sin(Mathf.Deg2Rad*300f)),//Bottom6
                 new Vector3(0, yMin, 0) //BottomCenter 
             }; 
-
             triangles = new int[] {  0,  2,  1, 
                                      0,  3,  2, 
                                      0,  4,  3, 
@@ -74,6 +96,9 @@ namespace Assets {
                                     13,  9, 10,
                                     13,  8,  9
             };
+
+            mesh.vertices = vertices;
+            mesh.triangles = triangles;
         }
 
         public Vector3 Center {
@@ -86,24 +111,8 @@ namespace Assets {
             }
         }
 
-        public Vector3[] Vertices {
-            get {
-                return vertices;
-            }
-
-            set {
-                vertices = value;
-            }
-        }
-
-        public int[] Triangles {
-            get {
-                return triangles;
-            }
-
-            set {
-                triangles = value;
-            }
+        public GameObject GameObject {
+            get { return gameObject; }
         }
     }
 }

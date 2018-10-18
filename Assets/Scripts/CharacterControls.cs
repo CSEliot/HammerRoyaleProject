@@ -91,7 +91,7 @@ public class CharacterControls : MonoBehaviour {
         isDead = false;
 
 
-        if (true){//!myPhotonView.isMine) {
+        if (false){//!myPhotonView.isMine) {
             cameraTransform.GetComponent<Camera>().enabled = false;//gameObject.SetActive(false);
             cameraTransform.GetComponent<AudioListener>().enabled = false;
             ArmCamLeft.SetActive(false);
@@ -99,15 +99,15 @@ public class CharacterControls : MonoBehaviour {
             gameObject.tag = "iPC";
         }
         else {
-            GameObject.FindGameObjectWithTag("MUSIC").GetComponent<MusicManager>().MusicBox1 = MusicBox1.GetComponent<AudioSource>();
-            GameObject.FindGameObjectWithTag("MUSIC").GetComponent<MusicManager>().MusicBox2 = MusicBox2.GetComponent<AudioSource>();
-            MusicManager._SwitchTo(0);
+            //GameObject.FindGameObjectWithTag("MUSIC").GetComponent<MusicManager>().MusicBox1 = MusicBox1.GetComponent<AudioSource>();
+            //GameObject.FindGameObjectWithTag("MUSIC").GetComponent<MusicManager>().MusicBox2 = MusicBox2.GetComponent<AudioSource>();
+            //MusicManager._SwitchTo(0);
             //Debug.Log("My photon view, I am: " + myPhotonView.viewID);
-            ArmLeft.SetActive(false);
-            ArmRight.SetActive(false);
-            Body.SetActive(false);
-            Head.SetActive(false);
-            gameObject.tag = "PC";
+            //ArmLeft.SetActive(false);
+            //ArmRight.SetActive(false);
+            //Body.SetActive(false);
+            //Head.SetActive(false);
+            //gameObject.tag = "PC";
         }
 
 
@@ -115,15 +115,15 @@ public class CharacterControls : MonoBehaviour {
         jetpackFuel = MaxJetpackFuel;
         canJetpack = true;
 
-        AudioSource[] sources = armsTransform.GetComponents<AudioSource>();
-        foreach (AudioSource a in sources) {
-            Debug.Log(a.clip.name);
-            if (a.clip.name == "jetpack_start") jetpackStartSound = a;
-            else if (a.clip.name == "jetpack_loop") jetpackLoopSound = a;
-            else if (a.clip.name == "punch") punchSound = a;
-            else if (a.clip.name == "punch_ground") punchGroundSound = a;
-            else if (a.clip.name == "die") dieSound = a;
-        }
+        //AudioSource[] sources = armsTransform.GetComponents<AudioSource>();
+        //foreach (AudioSource a in sources) {
+        //    Debug.Log(a.clip.name);
+        //    if (a.clip.name == "jetpack_start") jetpackStartSound = a;
+        //    else if (a.clip.name == "jetpack_loop") jetpackLoopSound = a;
+        //    else if (a.clip.name == "punch") punchSound = a;
+        //    else if (a.clip.name == "punch_ground") punchGroundSound = a;
+        //    else if (a.clip.name == "die") dieSound = a;
+        //}
     }
 
 
@@ -133,7 +133,7 @@ public class CharacterControls : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (true)//{!myPhotonView.isMine)
+        if (false)//{!myPhotonView.isMine)
             return;
 
 
@@ -144,21 +144,21 @@ public class CharacterControls : MonoBehaviour {
         }
 
         // Wave/punch
-        if (Input.GetButtonDown("Punch") && Time.time - previousPunchTime > punchCooldown) {
-            //myPhotonView.RPC("DoPunch", PhotonTargets.All);
-        }
-        else if (Input.GetButtonDown("Wave")) {
-            //_Help.FirstTimeWaved();
-            // Use energy, give boost
-            if (jetpackFuel - PunchEnergy >= 0f) {
-                //if (WaveCandidates.Count > 0) {
-                //    for (int x = 0; x < WaveCandidates.Count; x++) {
-                //        //WaveCandidates[x].RPC()
-                //    }
-                //}
-                //myPhotonView.RPC("DoWave", PhotonTargets.All);
-            }
-        }
+        //if (Input.GetButtonDown("Punch") && Time.time - previousPunchTime > punchCooldown) {
+        //    //myPhotonView.RPC("DoPunch", PhotonTargets.All);
+        //}
+        //else if (Input.GetButtonDown("Wave")) {
+        //    //_Help.FirstTimeWaved();
+        //    // Use energy, give boost
+        //    if (jetpackFuel - PunchEnergy >= 0f) {
+        //        //if (WaveCandidates.Count > 0) {
+        //        //    for (int x = 0; x < WaveCandidates.Count; x++) {
+        //        //        //WaveCandidates[x].RPC()
+        //        //    }
+        //        //}
+        //        //myPhotonView.RPC("DoWave", PhotonTargets.All);
+        //    }
+        //}
 
         #region Mouse stuff
         Vector2 mouseChange = Vector2.zero;
@@ -174,13 +174,13 @@ public class CharacterControls : MonoBehaviour {
         float newCameraRotY = cameraTransform.rotation.eulerAngles.y + mouseChange.x * MouseSensitivity * Time.deltaTime;
         cameraTransform.rotation = Quaternion.Euler(newCameraRotX, newCameraRotY, cameraTransform.rotation.eulerAngles.z);
 
-        newCameraRotX = armsTransform.rotation.eulerAngles.x - mouseChange.y * MouseSensitivity * Time.deltaTime;
-        if (newCameraRotX > 90.0f && newCameraRotX < 180.0f)
-            newCameraRotX = 90.0f;
-        if (newCameraRotX < 270.0f && newCameraRotX > 180.0f)
-            newCameraRotX = 270.0f;
-        newCameraRotY = armsTransform.rotation.eulerAngles.y + mouseChange.x * MouseSensitivity * Time.deltaTime;
-        armsTransform.rotation = Quaternion.Euler(newCameraRotX, newCameraRotY, armsTransform.rotation.eulerAngles.z);
+        //newCameraRotX = armsTransform.rotation.eulerAngles.x - mouseChange.y * MouseSensitivity * Time.deltaTime;
+        //if (newCameraRotX > 90.0f && newCameraRotX < 180.0f)
+        //    newCameraRotX = 90.0f;
+        //if (newCameraRotX < 270.0f && newCameraRotX > 180.0f)
+        //    newCameraRotX = 270.0f;
+        //newCameraRotY = armsTransform.rotation.eulerAngles.y + mouseChange.x * MouseSensitivity * Time.deltaTime;
+        //armsTransform.rotation = Quaternion.Euler(newCameraRotX, newCameraRotY, armsTransform.rotation.eulerAngles.z);
         #endregion
 
         // Check if on ground
@@ -229,7 +229,7 @@ public class CharacterControls : MonoBehaviour {
         inputDir.Normalize();
 
         // Movement
-        bool skiing = Input.GetButton("Ski");
+        bool skiing = false;//Input.GetButton("Ski");
         collider.sharedMaterial.dynamicFriction = 0f;
         collider.sharedMaterial.staticFriction = 0f;
         if (!onGround || skiing) {
@@ -269,54 +269,54 @@ public class CharacterControls : MonoBehaviour {
         }
 
         // Jumping/jetpacking
-        if (Input.GetButtonDown("Fire2")) {
-            // Start playing jetpack sounds
-            jetpackLoopSound.volume = 0f;
-            jetpackStartSound.volume = 1f;
-            jetpackStartSound.Play();
-            jetpackLoopSound.loop = true;
-            jetpackLoopSound.Play();
+        //if (Input.GetButtonDown("Fire2")) {
+        //    // Start playing jetpack sounds
+        //    jetpackLoopSound.volume = 0f;
+        //    jetpackStartSound.volume = 1f;
+        //    jetpackStartSound.Play();
+        //    jetpackLoopSound.loop = true;
+        //    jetpackLoopSound.Play();
 
-            canJetpack = true;
-        }
+        //    canJetpack = true;
+        //}
 
-        jetpackStartSound.volume = Mathf.Max(0f, jetpackStartSound.volume - 2f * Time.deltaTime);
-        if (Input.GetButton("Fire2")) {
-            // Transition into more seemless loop from initial burst
-            jetpackLoopSound.volume = Mathf.Min(1f, jetpackLoopSound.volume + 0.5f * Time.deltaTime);
+        //jetpackStartSound.volume = Mathf.Max(0f, jetpackStartSound.volume - 2f * Time.deltaTime);
+        //if (Input.GetButton("Fire2")) {
+        //    // Transition into more seemless loop from initial burst
+        //    jetpackLoopSound.volume = Mathf.Min(1f, jetpackLoopSound.volume + 0.5f * Time.deltaTime);
 
-            if (onGround)
-                rigidbody.AddExplosionForce(JumpPower, transform.position + Vector3.down * 3.0f, 10.0f);
-            if (jetpackFuel > MinJetpackFuel) {
-                canJetpack = true;
-            }
-            else if (jetpackFuel <= 0f) {
-                jetpackFuel = 0.0f;
-                canJetpack = false;
-            }
+        //    if (onGround)
+        //        rigidbody.AddExplosionForce(JumpPower, transform.position + Vector3.down * 3.0f, 10.0f);
+        //    if (jetpackFuel > MinJetpackFuel) {
+        //        canJetpack = true;
+        //    }
+        //    else if (jetpackFuel <= 0f) {
+        //        jetpackFuel = 0.0f;
+        //        canJetpack = false;
+        //    }
 
-            if (canJetpack) {
-                rigidbody.AddForce(Vector3.up * JetpackPower);
-                jetpackFuel -= JetpackUseRate * Time.deltaTime;
-            }
-            else {
-                jetpackFuel += JetpackRechargeRate * Time.deltaTime;
-            }
-        }
-        else {
-            jetpackLoopSound.volume = Mathf.Max(0f, jetpackLoopSound.volume - 2f * Time.deltaTime);
-            jetpackFuel += JetpackRechargeRate * Time.deltaTime;
-        }
-        if (jetpackFuel < 0.0f)
-            jetpackFuel = 0.0f;
-        else if (jetpackFuel > MaxJetpackFuel)
-            jetpackFuel = MaxJetpackFuel;
+        //    if (canJetpack) {
+        //        rigidbody.AddForce(Vector3.up * JetpackPower);
+        //        jetpackFuel -= JetpackUseRate * Time.deltaTime;
+        //    }
+        //    else {
+        //        jetpackFuel += JetpackRechargeRate * Time.deltaTime;
+        //    }
+        //}
+        //else {
+        //    jetpackLoopSound.volume = Mathf.Max(0f, jetpackLoopSound.volume - 2f * Time.deltaTime);
+        //    jetpackFuel += JetpackRechargeRate * Time.deltaTime;
+        //}
+        //if (jetpackFuel < 0.0f)
+        //    jetpackFuel = 0.0f;
+        //else if (jetpackFuel > MaxJetpackFuel)
+        //    jetpackFuel = MaxJetpackFuel;
 
         // Die if health is gone
         //Dead, Death
-        if (!isDead && (Health <= 0f || Input.GetButtonDown("Suicide"))) {
-            //die();
-        }
+        //if (!isDead && (Health <= 0f || Input.GetButtonDown("Suicide"))) {
+        //    //die();
+        //}
 
         //// Update jetpack UI
         //_UI.SetJetBar(jetpackFuel / MaxJetpackFuel);
@@ -437,16 +437,15 @@ public class CharacterControls : MonoBehaviour {
     //    FriendIcon.SetActive(true);
     //}
 
-    //private void respawn()
-    //{
-    //    Step3_SpawnAndJoin._SpawnPlayer();
+    private void respawn() {
+        //Step3_SpawnAndJoin._SpawnPlayer();
 
-    //    //transform.position = GameObject.FindGameObjectWithTag("RESPAWN").transform.position;
-    //    //transform.rotation = GameObject.FindGameObjectWithTag("RESPAWN").transform.rotation;
+        transform.position = GameObject.FindGameObjectWithTag("RESPAWN").transform.position;
+        transform.rotation = GameObject.FindGameObjectWithTag("RESPAWN").transform.rotation;
 
-    //    //rigidbody.isKinematic = true;
-    //    //StartCoroutine(_unKinematic());
-    //}
+        rigidbody.isKinematic = true;
+        StartCoroutine(_unKinematic());
+    }
 
     /// <summary>
     /// Single frame delay on unKinematicing
