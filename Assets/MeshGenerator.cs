@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class MeshGenerator : MonoBehaviour {
 
+    public GameObject HexObject;
     public float Radius;
     public float Height;
     public int TotalHexes;
 
     public bool ReDraw;
 
-    List<Assets.HexagonalPrism> hexList;
+    List<HexagonalPrism> hexList;
 
     int totalHexesRendered;
     //int currentHexesRendered;
@@ -19,7 +20,7 @@ public class MeshGenerator : MonoBehaviour {
 
     // Use this for initializatiom
     void Start() {
-        hexList = new List<Assets.HexagonalPrism>();
+        hexList = new List<HexagonalPrism>();
     }
 	
 	// Update is called once per frame
@@ -40,14 +41,7 @@ public class MeshGenerator : MonoBehaviour {
 	}
 
     void DrawHex() {
-        Assets.HexagonalPrism hex = new Assets.HexagonalPrism(Radius, Height, transform.position, Resources.Load <Material>("BoxMat"), Resources.Load<PhysicMaterial>("NoStuck"));
-    }
-
-    void LateUpdate() {
-        if(stupid = false) {
-            stupid = true;
-            hexList[0].GetComponent<MeshCollider>().enabled = false;
-            hexList[0].GetComponent<MeshCollider>().enabled = true;
-        }
+        HexagonalPrism hex = new HexagonalPrism(Radius, Height, transform.position, HexObject);
+        hexList.Add(hex);
     }
 }
