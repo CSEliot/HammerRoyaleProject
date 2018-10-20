@@ -89,7 +89,6 @@ class HexagonalPrism:MonoBehaviour {
 
         mesh.vertices = vertices;
         mesh.triangles = triangles;
-
         meshFilter.mesh = mesh;
         meshCollider.sharedMesh = mesh;
     }
