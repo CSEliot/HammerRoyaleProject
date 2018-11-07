@@ -1334,7 +1334,7 @@ GameObject:
   - component: {fileID: 1939286072}
   - component: {fileID: 1939286073}
   m_Layer: 0
-  m_Name: MeshGenerator
+  m_Name: TileSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1364,7 +1364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff91850f9e308874da09aaa5b153ee1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HexObject: {fileID: 1190868962580064, guid: efc7f28ca4f302a479e70a5af696eaab, type: 2}
+  HexagonalPrism: {fileID: 1190868962580064, guid: efc7f28ca4f302a479e70a5af696eaab,
+    type: 2}
   Radius: 50
   Height: 4
   TotalHexes: 1

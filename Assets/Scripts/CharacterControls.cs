@@ -31,8 +31,8 @@ public class CharacterControls : MonoBehaviour {
 
     public Transform cameraTransform;
     public Transform armsTransform;
-    public Rigidbody rigidbody;
-    public CapsuleCollider collider;
+    public new Rigidbody rigidbody;
+    public new CapsuleCollider collider;
     public BoxCollider hitTrigger;
     public Animator animator;
 

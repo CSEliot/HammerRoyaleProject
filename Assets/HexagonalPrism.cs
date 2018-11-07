@@ -9,64 +9,69 @@ using UnityEngine;
 /// </summary>
 class HexagonalPrism:MonoBehaviour {
 
-    float radius;
-    float height;
+    public struct HexShape {
+        public float Radius;
+        public float Height;
 
-    GameObject gameObject;
+        public HexShape(float Radius, float Height) {
+            this.Radius = Radius;
+            this.Height = Height;
+        }
+    }
+
+    //public references
+    public HexShape Shape;
+
+    //unity privates
     MeshCollider meshCollider;
     MeshRenderer meshRenderer;
     Mesh mesh;
     MeshFilter meshFilter;
-
-    /*
-        * Position
-        */
-    Vector3 center;
-
+    
+    //obj privates
     Vector3[] vertices;
-
     int[] triangles;
 
-    public HexagonalPrism(float radius, float height, Vector3 position, GameObject gameObject) {
+    //static
+    static Vector3 _center = Vector3.zero;
 
-        gameObject = Instantiate(gameObject, null, true);
-
-
+    void Start() {
         meshCollider = gameObject.GetComponent<MeshCollider>();
         meshRenderer = gameObject.GetComponent <MeshRenderer>();
         meshFilter = gameObject.GetComponent <MeshFilter>();
         mesh = new Mesh();
 
+        setDimensions();
+    }
 
-        this.radius = radius;
-        this.height = height;
-        this.center = position;
-
-        float yMax = position.y + height;
-        float yMin = position.y;
+    void setDimensions () {
+        
+        float yMax = _center.y + Shape.Height;
+        float yMin = _center.y;
 
         vertices = new Vector3[] {
             new Vector3(0, yMax, 0), //TopCenter
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*0f),  yMax, radius * Mathf.Sin(Mathf.Deg2Rad*0f  )),//Top1
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*60f), yMax, radius * Mathf.Sin(Mathf.Deg2Rad*60f )),//Top2
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*120f),yMax, radius * Mathf.Sin(Mathf.Deg2Rad*120f)),//Top3
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*180f),yMax, radius * Mathf.Sin(Mathf.Deg2Rad*180f)),//Top4
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*240f),yMax, radius * Mathf.Sin(Mathf.Deg2Rad*240f)),//Top5
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*300f),yMax, radius * Mathf.Sin(Mathf.Deg2Rad*300f)),//Top6
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*0f),  yMin, radius * Mathf.Sin(Mathf.Deg2Rad*0f  )),//Bottom1
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*60f), yMin, radius * Mathf.Sin(Mathf.Deg2Rad*60f )),//Bottom2
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*120f),yMin, radius * Mathf.Sin(Mathf.Deg2Rad*120f)),//Bottom3
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*180f),yMin, radius * Mathf.Sin(Mathf.Deg2Rad*180f)),//Bottom4
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*240f),yMin, radius * Mathf.Sin(Mathf.Deg2Rad*240f)),//Bottom5
-            new Vector3(radius * Mathf.Cos(Mathf.Deg2Rad*300f),yMin, radius * Mathf.Sin(Mathf.Deg2Rad*300f)),//Bottom6
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*0f),  yMax, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*0f  )),//Top1
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*60f), yMax, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*60f )),//Top2
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*120f),yMax, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*120f)),//Top3
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*180f),yMax, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*180f)),//Top4
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*240f),yMax, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*240f)),//Top5
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*300f),yMax, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*300f)),//Top6
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*0f),  yMin, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*0f  )),//Bottom1
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*60f), yMin, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*60f )),//Bottom2
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*120f),yMin, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*120f)),//Bottom3
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*180f),yMin, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*180f)),//Bottom4
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*240f),yMin, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*240f)),//Bottom5
+            new Vector3(Shape.Radius * Mathf.Cos(Mathf.Deg2Rad*300f),yMin, Shape.Radius * Mathf.Sin(Mathf.Deg2Rad*300f)),//Bottom6
             new Vector3(0, yMin, 0) //BottomCenter 
-        }; 
-        triangles = new int[] {  0,  2,  1, 
-                                    0,  3,  2, 
-                                    0,  4,  3, 
-                                    0,  5,  4, 
-                                    0,  6,  5, 
-                                    0,  1,  6, 
+        };
+
+        triangles = new int[] {  0,  2,  1,
+                                    0,  3,  2,
+                                    0,  4,  3,
+                                    0,  5,  4,
+                                    0,  6,  5,
+                                    0,  1,  6,
                                     1,  8,  7,
                                     1,  2,  8,
                                     2,  9,  8,
@@ -91,20 +96,6 @@ class HexagonalPrism:MonoBehaviour {
         mesh.triangles = triangles;
         meshFilter.mesh = mesh;
         meshCollider.sharedMesh = mesh;
-    }
-
-    public Vector3 Center {
-        get {
-            return center;
-        }
-
-        set {
-            center = value;
-        }
-    }
-
-    public GameObject GameObject {
-        get { return gameObject; }
     }
 }
 

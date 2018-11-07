@@ -2,25 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeshGenerator : MonoBehaviour {
+public class TileSpawner : MonoBehaviour {
 
-    public GameObject HexObject;
+    public GameObject HexagonalPrism;
     public float Radius;
     public float Height;
     public int TotalHexes;
 
     public bool ReDraw;
 
-    List<HexagonalPrism> hexList;
+    List<GameObject> Tiles;
 
     int totalHexesRendered;
     //int currentHexesRendered;
 
-    bool stupid = false;
-
     // Use this for initializatiom
     void Start() {
-        hexList = new List<HexagonalPrism>();
+        Tiles = new List<GameObject>();
     }
 	
 	// Update is called once per frame
@@ -28,8 +26,9 @@ public class MeshGenerator : MonoBehaviour {
 		if (ReDraw) {
             ReDraw = false;
             totalHexesRendered = 0;
-            for (int i = 0; i < hexList.Count; i++) {
-                Destroy(hexList[i].GameObject);
+            for (int i = 0; i < Tiles.Count; i++) {
+                Destroy(Tiles[i]);
+                Tiles.RemoveAt(i);
             }
         }
 
@@ -41,7 +40,8 @@ public class MeshGenerator : MonoBehaviour {
 	}
 
     void DrawHex() {
-        HexagonalPrism hex = new HexagonalPrism(Radius, Height, transform.position, HexObject);
-        hexList.Add(hex);
+        GameObject hex = Instantiate(HexagonalPrism, transform.position, Quaternion.Euler(Vector3.zero));
+        hex.GetComponent<HexagonalPrism>().Shape = new HexagonalPrism.HexShape(Radius, Height);
+        Tiles.Add(hex);
     }
 }
